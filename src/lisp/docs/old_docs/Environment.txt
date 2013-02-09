@@ -1,0 +1,22 @@
+GC ‚Ì‚½‚ß‚É Environment ‚Ì\‘¢‚ð•Ï‚¦‚éB
+
+Cell-> 
+ExAtom:
+	type: Environment
+	ptr: Cell pointer; ->
+
+Cell
+	car -> upper ExAtom Environment
+	cdr -> next Cell
+
+Cell
+	car -> top
+	cdr -> nil
+----
+top Cell
+	car -> (key . value)
+	cdr -> next cell or nill;
+
+key: ExAtom: String
+
+value: Union

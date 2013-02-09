@@ -1,0 +1,30 @@
+#
+TOP =../..
+
+SOURCES= \
+	test2.cpp \
+	$(NULL)
+	
+TARGET = \
+	test2.exe \
+	$(NULL)
+
+include $(TOP)/../mk/msvc/msvc.mk
+
+LIBS=../src/sgl++.lib Win_limfonts.lib fontData.lib
+OPENGL = glut32.lib opengl32.lib glu32.lib
+MSLIBS = Ws2_32.lib Advapi32.lib Shell32.lib Gdiplus.lib
+RELATED_LIBS=../src/sgl++.lib
+
+#-------------------------------------------------------------------
+#TEST_SOURCES = test.cpp
+#TEST_OBJECTS = $(TEST_SOURCES:.cpp=.obj)
+#test.exe: $(TEST_OBJECTS) $(RELATED_LIBS)
+#	$(CXX) $(CXXFLAGS) -o $@ $(TEST_OBJECTS) $(LIBS) $(OPENGL) $(MSLIBS) /link 
+
+#-------------------------------------------------------------------
+TEST2_SOURCES = test2.cpp
+TEST2_OBJECTS = $(TEST2_SOURCES:.cpp=.obj) 
+test2.exe: $(TEST2_OBJECTS) $(RELATED_LIBS)
+	$(CXX) $(CXXFLAGS) -o $@ $(TEST2_OBJECTS) $(LIBS) $(OPENGL) $(MSLIBS) /link /nodefaultlib:libc
+

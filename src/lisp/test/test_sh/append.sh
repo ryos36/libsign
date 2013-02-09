@@ -1,0 +1,23 @@
+./scheme_func_test a "(a b) (c d)"
+./scheme_func_test a "(a (b) c) (d e)"
+./scheme_func_test a "(a b) d"
+./scheme_func_test a "() d"
+./scheme_func_test a "() (a b c d)"
+./scheme_func_test a "() ()"
+./scheme_func_test a "(nil) (a b)"
+./scheme_func_test a "(nil nil) (a b)"
+./scheme_func_test a "(nil . nil) (a b)"
+./scheme_func_test a "(a . nil) (b c)"
+#./scheme_func_test a "(a . b) (c d)" #-> error
+#./scheme_func_test a "(nil . a) (b c)" #-> error
+echo deep copy
+./scheme_func_test d "nil"
+./scheme_func_test d "()"
+./scheme_func_test d "(a b)"
+./scheme_func_test d "(a . b)"
+./scheme_func_test d "(a (b) c)"
+./scheme_func_test d "()"
+./scheme_func_test d "(nil)"
+./scheme_func_test d "(nil nil)"
+./scheme_func_test d "(nil . nil)"
+./scheme_func_test d "(a . nil)"

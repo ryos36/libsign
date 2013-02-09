@@ -1,0 +1,28 @@
+#
+TOP =../..
+TARGET = sgl++.lib
+
+INCS= -I $(TOP)/../vendor/glut/include -I $(TOP)/include
+
+include $(TOP)/../mk/msvc/msvc.mk
+
+DEFS += -DWINDOWS 
+
+FONT_NAME=Hanami
+FONTS_CPP = \
+	fonts/$(FONT_NAME).cpp
+
+CPP_SOURCES= \
+	primitives.cpp \
+	sgl.cpp \
+	OpenGLDevice.cpp \
+	DefaultGraphicDeviceManager.cpp \
+	DefaultFontManager.cpp \
+	FontTable.cpp \
+	$(FONTS_CPP) \
+	$(NULL)
+
+
+sgl++.lib: $(OBJECTS) 
+	lib /OUT:$@ $(OBJECTS) $(CLR_OBJECTS)
+

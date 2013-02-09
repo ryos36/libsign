@@ -1,0 +1,22 @@
+#
+TOP =../../..
+TARGET = fontData.lib
+
+INCS= -I $(TOP)/../vendor/glut/include -I $(TOP)/include
+
+include $(TOP)/../mk/msvc/msvc.mk
+
+DEFS += -DWINDOWS 
+#CFLAGS += /TC
+
+C_SOURCES= \
+	kelly_lim_font_data.c \
+	kelly_lim_font_icon.c \
+	gaizi.c \
+	animationIcon.c \
+	$(NULL)
+
+
+fontData.lib: $(OBJECTS) 
+	lib /OUT:$@ $(OBJECTS) $(CLR_OBJECTS)
+

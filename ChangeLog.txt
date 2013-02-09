@@ -1,0 +1,26 @@
+2008年 12月17日 水曜日 17時39分27秒 JST
+Event システムの名前を変えた
+JPString を削った
+KeyCode の整理
+
+2008年 11月27日 木曜日 19時05分51秒 JST
+drawString の統一
+	内部コードを unicode にした。
+	現在は wchar_t * の drawString は unicode.
+	フォント側が SJIS の場合、FontTable で変換する必要がある。
+	private drawStringUTF16 と名前を変える予定。
+	その場合、外部 API として drawString があり = drawStringUTF16
+	となる予定。
+
+	後方互換のために char * の drawString を残した。これは
+	ShiftJIS 決めうちとした。pufi++ では使わない方向にする。
+	使わないがそのまま残す。
+	drawStringSJIS あるいは drawStringASCII などと名前を変える予定。
+内部カラーコードの統一
+	RGBAChar を primitive.h から削除
+	SGL16BIT の削除
+wchar の整理
+	g++ が標準で wchar をもっているので #include <wchar.h> はいらないことが
+	わかった。他のコンパイラ用に
+	include/add_include/wchar.h を作ったが使ってない。実績も無い。
+	

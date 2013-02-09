@@ -1,0 +1,6 @@
+# ./scheme_test "(block)"
+./scheme_test "(block  bname)"
+# ./scheme_test "(block  bname . t)"
+./scheme_test "(block  bname t)"
+./scheme_test "(block  bname t 1)"
+./scheme_test "(block  bname t 1 2)"

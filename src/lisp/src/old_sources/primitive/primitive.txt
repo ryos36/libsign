@@ -1,0 +1,98 @@
+// skip since file system
+            { "close-input-port",               close_input_port },
+            { "close-output-port",              close_output_port },
+            { "current-input-port",             current_input_port },
+            { "current-output-port",            current_output_port },
+            { "eof-object?",                    eof_object_p },
+            { "input-port?",                    input_p },
+            { "open-input-file",                open_input_file },
+            { "open-output-file",               open_output_file },
+            { "output-port?",                   output_p },
+            { "read",                           skread },
+            { "read-char",                      read_char },
+	    { "truncate",                       sktruncate }, 
+            { "write",                          write },
+            { "write-char",                     write_char },
+            { "peek-char",                      peek_char },
+
+// skip since math
+	    { "acos",                           skacos },
+	    { "asin",                           skasin },
+	    { "atan",                           skatan },
+
+            { "ceiling",                        skceiling },
+	    { "cos",                            skcos },
+            { "complex?",                       complex_p },
+
+            { "exact?",                         exact_p },
+	    { "exact->inexact",                 exact_to_inexact },
+	    { "inexact->exact",                 inexact_to_exact }, 
+            { "inexact?",                       inexact_p },
+
+	    { "exp",                            skexp },
+	    { "expt",                           expt },
+	    { "floor",                          skfloor },
+            { "gcd",                            gcd },
+            { "lcm",                            lcm },
+
+	    { "log",                            sklog },
+
+            { "rational?",                      rational_p },
+            { "real?",                          real_p },
+	    { "round",                          round }, 
+	    { "sin",                            sksin },
+	    { "sqrt",                           sksqrt },
+	    { "tan",                            sktan }, 
+            { "quotient",                       quotient },
+
+// skip since vector
+            { "list->vector",                   list_to_vector },
+            { "make-vector",                    skmake_vector },
+            { "vector",                         vector_from_list },
+            { "vector->list",                   vector_to_list },
+	    { "vector-fill!",                   vector_fill },          // R5
+            { "vector-length",                  vector_length },
+            { "vector-ref",                     vector_ref },
+            { "vector-set!",                    vector_set },
+            { "vector?",                        vector_p },
+
+// skip since list<->string
+            { "list->string",                   list_to_string },
+            { "string->list",                   string_to_list },
+
+// sepecial??
+            { "string-fill!",                   string_fill },          // R5
+
+	    { "logand",                         logand }, 
+	    { "logbit?",                        logbit_p }, 
+	    { "logior",                         logior }, 
+	    { "lognot",                         lognot }, 
+	    { "logxor",                         logxor }, 
+
+	    //----------------------------------------------------------------
+	    //
+	    // The following functions are not part of the spec, but 
+	    // are peculiar to this implementation.
+	    //
+            { "bound?",                           bound_p },
+	    { "chdir",                            sk_chdir },
+            { "display*",                         display_star },
+	    { "put",                              put_property },
+	    { "get",                              get_property },
+	    { "file-exists?",                     file_exists_p },
+	    { "gc",                               skgc },
+	    { "getcwd",                           sk_getcwd },
+            { "nconc",                            nconc },
+            { "primitive-procedure?",             primitive_procedure_p },
+	    { "scheme-implementation-type",       sk_impl_type },
+	    { "vx-scheme-implementation-type",    vxs_impl_type },
+	    { "scheme-implementation-version",    sk_impl_ver },
+	    { "scheme-implementation-home-page",  sk_impl_page },
+	    { "scheme-implementation-platform",   sk_impl_platform },
+            { "symbol-value",                     symbol_value },
+            { "vector-push!",                     vector_push },
+            { "vector-pop!",                      vector_pop },
+            { "vector-unshift!",                  vector_unshift }, 
+            { "vector-shift!",                    vector_shift },
+
+	    { "error",                          skerror },  // chez-scheme

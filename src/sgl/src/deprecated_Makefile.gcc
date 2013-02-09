@@ -1,0 +1,48 @@
+TOP=../../../../../SVN
+TOP=../../../../kelly2
+
+#----------------------------------------
+ifdef RETAIL
+TARGET=libsgl++.a
+else
+TARGET=libsgl++d.a
+endif
+
+#----------------------------------------
+include $(TOP)/misc/common.mk
+include ../../Makefile.gcc.include
+
+#----------------------------------------
+ifdef RETAIL
+OPTS=$(LIBSIGN_RETAIL_OPT)
+else
+OPTS=$(LIBSIGN_DEBUG_OPT)
+endif
+
+#----------------------------------------
+ASM_SOURCES=
+FONTS_CPP = \
+	fonts/gnu_unicode.cpp
+
+FONTS_CPP += \
+	fonts/Hanami.cpp
+
+
+SOURCES_CPP = \
+	primitives.cpp \
+	sgl.cpp \
+	DefaultGraphicDeviceManager.cpp \
+	DefaultFontManager.cpp \
+	FontTable.cpp \
+	$(FONTS_CPP) \
+	$(NULL)
+
+xFONT_C = 
+SOURCES_C = sjis.c moji.c \
+	$(NULL)
+
+OBJECTS = $(SOURCES_CPP:.cpp=.o) $(SOURCES_C:.c=.o)
+#----------------------------------------
+
+$(TARGET):$(OBJECTS)
+	$(AR) rv $@ $(OBJECTS)

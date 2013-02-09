@@ -1,0 +1,144 @@
+see docs/*.txt, too
+
+--------------------------------------
+sign/scheme -> sign/lambda
+
+--------------------------------------
+quasiquote 関数は前作ったのを
+字面だけおって、
+あまり意味も考えずに移植しただけ。
+
+まだまだぜんぜんだめ
+-> `(a `(,,b) c)
+-> `(a (,,b) c)
+
+--------------------------------------
+primitive
+	case SPECIAL_OPERATOR:
+	case SYSTEM_FUNCTION:
+SYSTEM_FUNCTION を上書きできてしまう。
+
+--------------------------------------
+(lambda とか #'(lambda とか、どうするよ。
+clisp の結果
+Break 1 [148]>
+[149]> (print #'(lambda (x) (+ 1 x)))
+
+#<FUNCTION :LAMBDA (X) (+ 1 X)>
+#<FUNCTION :LAMBDA (X) (+ 1 X)>
+[150]> (print '(lambda (x) (+ 1 x)))
+
+(LAMBDA (X) (+ 1 X))
+(LAMBDA (X) (+ 1 X))
+[151]> (print (lambda (x) (+ 1 x)))
+
+#<FUNCTION :LAMBDA (X) (+ 1 X)>
+#<FUNCTION :LAMBDA (X) (+ 1 X)>
+(fdefinition 'lambda)
+#<MACRO #<COMPILED-FUNCTION LAMBDA>
+  (&WHOLE SYSTEM::WHOLE-FORM SYSTEM::LAMBDALIST &BODY SYSTEM::BODY)>
+
+  lambda はマクロだった
+--------------------------------------
+T とか NIL とかシンボル化できないものをシンボル化しない。
+
+--------------------------------------
+BLOCK をつくったものの
+	それを有効に使える手段がない。
+	declare も含む。
+
+--------------------------------------
+Char
+	isprint じゃない場合の表記
+		改行とか
+
+--------------------------------------
+ExBigNum.h
+	サポートが不十分。というかぜんぜんやってない。
+	BigNum の各演算
+		cmp は かならず 0 になっている。
+	Printer.cpp が ToDo
+--------------------------------------
+apply が SPACIAL_OOPEになってしまっている。
+	仕様的にいいのか？->だめ。
+--------------------------------------
+funcall が必要そう。
+[173]> (fdefinition 'funcall)
+#<SYSTEM-FUNCTION FUNCALL>
+[175]> (fdefinition 'apply)
+#<SYSTEM-FUNCTION APPLY>
+
+defun の実装
+clisp->
+(fdefinition 'defun)
+#<MACRO #<COMPILED-FUNCTION DEFUN>
+  (SYSTEM::FUNCTION-NAME SYSTEM::LAMBDA-LIST &BODY SYSTEM::FORMS)>
+  マクロかよ。
+
+* (fdefinition 'defun)
+  #<CLOSURE (LAMBDA (&REST SB-C::ARGS)) {58E39B5D}>
+  クロージャって概念を持ってきている
+
+じゃクロージャはどうよ？
+[180]> (let (a) (lambda (x) (setf a x) (+ 1 a) ))
+#<FUNCTION :LAMBDA (X) (SETF A X) (+ 1 A)>
+[181]>
+
+* (let (a) (lambda (x) (setf a x) (+ 1 a) ))
+#<CLOSURE (LAMBDA (X)) {59A6D5D5}>
+
+
+-----------------------------------------------------------
+ConsMustBe3<IsExAtomPointer, IsPairCellPointer, IsPairCellPointer> env_wrapper(env);
+	毎回細かい領域を必要とするため
+	性能問題を引き起こすだろう。
+
+--------------------------------------
+エラー発生時のデバッグ情報を表示可能なように捕捉
+	syntax_error で cxr を投げることができるようにした方がよい？
+
+	実行中の alloc エラー
+		>> 戻しようがないので fatal_error
+		デバッグ時に補足できるべき？
+
+	fatal_error
+		解析できるようにすべき？
+--------------------------------------
+back_pointer が外に出てしまい GC 対象じゃない。
+いちおう SReader の途中でも GC できるようにしていた。(?)
+	-> 不必要 GC 対象外にしてもよい
+	-> target を root_cxr に入れるのは余計だった、、、
+target_pointer をメンバ変数にしてしまえばよい
+
+--------------------------------------
+let でつくった new env が GC 対象にならない。
+	これは大きな修正か？
+	なんかちゃんと考えていたはずなのだが、、、、
+apply もそう
+
+--------------------------------------
+let apply 異常系の時あるいはおわったあとに
+	Env を開放しない(GC待ち)
+
+--------------------------------------
+(if t t t t ) の too many parameter を else を評価しないと
+チェックしない。
+
+--------------------------------------
+(let (t))
+が OK になる。(let (x)) は nil を返す。このとき変数をチェックしていないから
+--------------------------------------
+終わった項目->docs に記録予定
+--------------------------------------
+'() -> nil と解釈するようにした。
+	そのために back_pointer なるものを解析中の car に
+	いれることにした。
+
+--------------------------------------
+Scheme に "BLOCK" や "QUOTE" を半永久的に symbol として登録したかったが
+	GC があるのでやめた。
+	将来的には GC 非対称の半永久的なシンボルがあるべき。
+	でもって ExSymbol と ExString はそう設計されていて pointer
+	をもっている。
+	// You cannot keep symbol_declare as menber variable because of GC.
+	という変なコメントを入れている。

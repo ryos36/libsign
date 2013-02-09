@@ -1,0 +1,23 @@
+CXXFLAGS=-I../../include
+PREFIX=arm-xscale-linux-gnueabi-
+PREFIX=arm-linux-
+CC=$(PREFIX)gcc
+AR=$(PREFIX)ar
+TARGET=libfontData.a
+
+SOURCES_C = \
+	gnu_unicode_data.c \
+	$(NULL)
+
+OBJECTS = $(SOURCES_CPP:.cpp=.o) $(SOURCES_C:.c=.o)
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(AR) rv $@ $(OBJECTS)						
+	
+clean:
+	-rm $(OBJECTS) $(TARGET)
+
+
+	

@@ -1,0 +1,31 @@
+cell は２つでひとつ(car と cdr)
+	それぞれに union がはいる
+
+	ptr[31 downto 3]  or int[31 downto 3]
+	tag[2 downto 0] // cell exatom 共通
+	tag が ExAtom だと ptr を使うために
+	ptr にするときに tag をマスクしておとす。
+		static ExAtom *toExAtom(unsigned int va) {
+			return reinterpret_cast<ExAtom *>(va & ~TAG_MASK);
+		}
+
+exatom は cell を間借りしている。
+	通常は
+	car にそうとうするところに Type が入る
+	cdr にそうとうするところにポインターが入る
+
+	Type は 11 しかないのでかなり無駄にしている。
+	cell の Union と一発でわかるようにしている。
+
+	reserve[31 double 7]
+	ex_atom_type[6 downto 3] // exatom type
+	tag[2 downto 0] // cell exatom 共通
+
+	double もポインターになっている
+	ポインターの先はどっかの malloc の領域。
+	ExAtom::release をみるとわかりやすい。
+		char, EX_NUM だけポインタではない
+		ポインタでも開放できないものがある。
+
+	reserve は使えそうだがつかっていない。
+

@@ -1,0 +1,20 @@
+logiCVC-ML
+	regs 0x40030000 - 0x4003ffff
+
+	vmem 0x30000000 - 0x3fffffff
+	24
+	24
+	24
+	8
+
+logiBITBLT
+	regs 0x40080000 - 0x4008ffff
+	0x00000000 - 0x3fffffff
+
+logiBMP
+	regs 0x40090000 - 0x4009ffff
+	0x30000000 - 0x3fffffff
+
+logi3D
+	regs 0x400B0000 - 0x400Bffff
+	0x30000000 -

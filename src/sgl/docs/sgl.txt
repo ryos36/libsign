@@ -1,0 +1,24 @@
+sign::sgl::GraphicFunction
+	グラフィックがサポートすべきファンクション
+
+sign::sgl::GraphicDevice
+	実際のデバイス
+
+sign::KeyboardListener
+
+sign::PointingDeviceListener
+
+sign::EvnetnManager
+
+sign::GraphicDeviceManager
+	デバイスをシステムに登録したり lookup する
+
+sign::FontTable
+
+sign::FontManager
+	Font をシステムに登録したり lookup する
+
+sign::GraphicInfo, GraphicFunction, EventManager 
+	GraphicDevice と EventManager をもつクラス
+
+

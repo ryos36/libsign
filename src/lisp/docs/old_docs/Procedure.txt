@@ -1,0 +1,18 @@
+GC ‚Ì‚½‚ß‚É CompoundProcedure ‚Ì\‘¢‚ð•Ï‚¦‚éB
+
+Cell-> 
+ExAtom:
+	type: CompoundProcedure
+	ptr: Cell pointer; ->
+
+Cell
+	car -> ExAtom Environment
+	cdr -> next Cell
+
+Cell
+	car -> args
+	cdr -> next Cell
+
+Cell
+	car -> body
+	cdr -> Nil

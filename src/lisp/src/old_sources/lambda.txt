@@ -1,0 +1,28 @@
+
+	// lambda? 先送り
+	if ( value.isTaggedList(&symbol::LAMBDA) ) {
+		// ('lambda arg body ... );
+		if ( value->cdr->cdr.isAtom() ) {
+			throw std::runtime_error("syntax error :LAMBDA");
+		}
+
+		ExAtom *lambda_exatom;
+		lambda_exatom = ExAtom::alloc_compound_procedure(env, value->cdr->car, value->cdr->cdr);
+		return Union(lambda_exatom);
+	}
+
+
+	throw std::runtime_error("Unknown expression type");
+
+//------------------------------------------------------------------------
+Union 
+make_lambda(const Cell *args, const Cell *body)
+{
+	// ('lambda args body ... )
+	Union args_body;
+	args_body = Union::cons(Union::deep_copy(Union(const_cast<Cell *>(args))), Union::deep_copy(Union(const_cast<Cell *>(body))));
+
+	return Union::cons(Union(&ExAtom::Lambda), args_body);
+
+}
+

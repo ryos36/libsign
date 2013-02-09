@@ -1,0 +1,5 @@
+U+0000..U+007F  C0 Controls and Basic Latin
+U+3040..U+309F  Hiragana
+U+30A0..U+30FF  Katakana
+U+31F0..U+31FF  Katakana Phonetic Extensions
+U+4E00..U+9FCF  CJK Unified Ideographs
